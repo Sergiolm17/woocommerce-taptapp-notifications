@@ -1,0 +1,31 @@
+.wrap h1 {
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+.nav-tab-wrapper {
+    margin-bottom: 1.5em;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.placeholder-buttons {
+    margin-bottom: 1em;
+}
+
+.placeholder-buttons .button {
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;  /* Ensures padding and border are included in the width */
+}
