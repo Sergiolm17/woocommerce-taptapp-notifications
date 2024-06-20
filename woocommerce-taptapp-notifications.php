@@ -3,7 +3,7 @@
 /**
  * Plugin Name: WooCommerce TapTapp Notifications
  * Description: Enviar notificaciones de WhatsApp basadas en el estado de los pedidos de WooCommerce y cuando se añaden notas al cliente.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: TapTapp
  */
 
