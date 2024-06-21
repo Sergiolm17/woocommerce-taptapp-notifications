@@ -63,7 +63,6 @@ class WC_TapTapp_Settings {
                     settings_fields( 'taptapp_core_settings' );
                     WC_TapTapp_Core_Settings::settings_page();
                 }
-                submit_button();
                 ?>
             </form>
         </div>

@@ -144,6 +144,7 @@ class WC_TapTapp_Invoice_Settings {
     public static function settings_page() {
         settings_fields( 'taptapp_notifications_settings' );
         do_settings_sections( 'taptapp_notifications_invoice' );
+        submit_button();
     }
 }
 

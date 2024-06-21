@@ -104,6 +104,7 @@ class WC_TapTapp_Status_Settings {
         <?php
         settings_fields( 'taptapp_notifications_settings' );
         do_settings_sections( "taptapp_notifications_{$subtab}" );
+        submit_button();
     }
 }
 
