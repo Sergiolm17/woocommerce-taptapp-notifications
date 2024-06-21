@@ -21,6 +21,7 @@ include_once plugin_dir_path( __FILE__ ) . 'includes/settings/class-wc-taptapp-c
 include_once plugin_dir_path( __FILE__ ) . 'includes/settings/class-wc-taptapp-status-settings.php';
 include_once plugin_dir_path( __FILE__ ) . 'includes/settings/class-wc-taptapp-invoice-settings.php';
 include_once plugin_dir_path( __FILE__ ) . 'includes/settings/class-wc-taptapp-core-settings.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/settings/class-wc-taptapp-product-settings.php';
 
 
 
@@ -36,6 +37,7 @@ WC_TapTapp_Status_Settings::init();
 WC_TapTapp_Customer_Note_Settings::init();
 WC_TapTapp_Invoice_Settings::init();
 WC_Taptapp_CF7_Integration::init();
+WC_TapTapp_Product_Settings::init();
 
 
 // Activation hook to set default messages

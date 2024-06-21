@@ -35,8 +35,9 @@ class WC_TapTapp_Settings {
     public static function register_settings() {
         register_setting( 'taptapp_notifications_settings', 'taptapp_notifications_messages' );
         register_setting( 'taptapp_notifications_settings', 'taptapp_invoice_settings' );
+        register_setting( 'taptapp_notifications_settings', 'taptapp_product_settings' ); // Añadir la configuración del producto
     }
-    
+
     public static function settings_page() {
         $tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'status';
         ?>
@@ -47,6 +48,7 @@ class WC_TapTapp_Settings {
                 <a href="?page=taptapp-notifications&tab=customer_note" class="nav-tab <?php echo $tab == 'customer_note' ? 'nav-tab-active' : ''; ?>">Notas de Cliente</a>
                 <a href="?page=taptapp-notifications&tab=invoice" class="nav-tab <?php echo $tab == 'invoice' ? 'nav-tab-active' : ''; ?>">Facturas PDF</a>
                 <a href="?page=taptapp-notifications&tab=core" class="nav-tab <?php echo $tab == 'core' ? 'nav-tab-active' : ''; ?>">Configuración del Core</a>
+                <a href="?page=taptapp-notifications&tab=product" class="nav-tab <?php echo $tab == 'product' ? 'nav-tab-active' : ''; ?>">Producto</a> <!-- Añadir pestaña de Producto -->
             </h2>
             <form method="post" action="options.php">
                 <?php
@@ -59,6 +61,9 @@ class WC_TapTapp_Settings {
                 } elseif ($tab == 'invoice') {
                     settings_fields( 'taptapp_notifications_settings' );
                     WC_TapTapp_Invoice_Settings::settings_page();
+                } elseif ($tab == 'product') {
+                    settings_fields( 'taptapp_notifications_settings' );
+                    WC_TapTapp_Product_Settings::settings_page(); // Llamar a la página de configuración del producto
                 } else {
                     settings_fields( 'taptapp_core_settings' );
                     WC_TapTapp_Core_Settings::settings_page();
