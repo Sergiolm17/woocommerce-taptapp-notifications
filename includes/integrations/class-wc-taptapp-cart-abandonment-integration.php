@@ -3,7 +3,11 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit; // Exit if accessed directly
 }
-//https://taptapp.xyz/wp-json/taptapp/v1/notify
+
+// Asegurarse de que la función is_plugin_active esté disponible
+if ( ! function_exists( 'is_plugin_active' ) ) {
+    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+}
 
 class WC_TapTapp_API {
 
