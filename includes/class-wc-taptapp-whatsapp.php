@@ -7,9 +7,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_TapTapp_WhatsApp {
 
     public static function send_message( $phone, $message, $media = null ) {
+        $core_settings = get_option( 'taptapp_core_settings' );
         $api_url = isset( $core_settings['taptapp_api_url'] ) ? $core_settings['taptapp_api_url'] : '';
         $api_key = isset( $core_settings['taptapp_api_key'] ) ? $core_settings['taptapp_api_key'] : '';
-
 
         $body = array(
             'jid' => $phone,
@@ -77,3 +77,4 @@ class WC_TapTapp_WhatsApp {
         }
     }
 }
+?>

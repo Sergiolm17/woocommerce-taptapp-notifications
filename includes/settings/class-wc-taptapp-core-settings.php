@@ -8,6 +8,7 @@ class WC_TapTapp_Core_Settings {
 
     public static function init() {
         add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
+        add_action( 'admin_menu', array( __CLASS__, 'add_settings_page' ) );
     }
 
     public static function register_settings() {
@@ -55,9 +56,29 @@ class WC_TapTapp_Core_Settings {
         echo "<input type='password' id='taptapp_api_key' name='taptapp_core_settings[taptapp_api_key]' value='{$api_key}' class='regular-text'>";
     }
 
+    public static function add_settings_page() {
+        add_options_page(
+            'TapTapp Core Settings',
+            'TapTapp Settings',
+            'manage_options',
+            'taptapp_notifications_core',
+            array( __CLASS__, 'settings_page' )
+        );
+    }
+
     public static function settings_page() {
-        settings_fields( 'taptapp_core_settings' );
-        do_settings_sections( 'taptapp_notifications_core' );
+        ?>
+        <div class="wrap">
+            <h1>Configuración del Core</h1>
+            <form method="post" action="options.php">
+                <?php
+                settings_fields( 'taptapp_core_settings' );
+                do_settings_sections( 'taptapp_notifications_core' );
+                submit_button();
+                ?>
+            </form>
+        </div>
+        <?php
     }
 }
 

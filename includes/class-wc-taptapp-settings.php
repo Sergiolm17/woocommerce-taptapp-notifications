@@ -36,7 +36,7 @@ class WC_TapTapp_Settings {
         register_setting( 'taptapp_notifications_settings', 'taptapp_notifications_messages' );
         register_setting( 'taptapp_notifications_settings', 'taptapp_invoice_settings' );
     }
-
+    
     public static function settings_page() {
         $tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'status';
         ?>
