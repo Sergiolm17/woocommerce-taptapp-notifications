@@ -114,7 +114,7 @@ class WC_TapTapp_Product_Sync {
         if (empty($product_data['images'])) {
             $product_data['images'] = array(
                 array(
-                    'url' => 'https://ik.imagekit.io/fresa/IMAGEN%202%20PRODUCT.jpg?updatedAt=1718330824262'
+                    'url' => get_site_url() . '/wp-content/uploads/woocommerce-placeholder.png'
                 )
             );
         }
