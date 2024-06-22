@@ -7,37 +7,41 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_TapTapp_Product_Sync {
 
     public static function init() {
-        add_action('transition_post_status', array(__CLASS__, 'on_product_publish'), 10, 3);
-        error_log('WC_TapTapp_Product_Sync initialized');
+        add_action('save_post_product', array(__CLASS__, 'handle_product_save'), 10, 3);
     }
 
-    public static function on_product_publish($new_status, $old_status, $post) {
+    public static function handle_product_save($post_id, $post, $update) {
+        // Verifica si es una revisión
+        if (wp_is_post_revision($post_id)) {
+            return;
+        }
+
+        // Verifica si es un producto de WooCommerce
         if ($post->post_type !== 'product') {
             return;
         }
 
-        if ($new_status === 'publish' && $old_status !== 'publish') {
-            error_log('Product created: ' . $post->ID);
-            self::handle_product_creation($post->ID);
+        // Verifica si el producto ya tiene un ID de producto de WhatsApp
+        $whatsapp_product_id = get_post_meta($post_id, '_whatsapp_product_id', true);
+        
+        if ($update && $whatsapp_product_id) {
+            self::handle_product_update($post_id, $whatsapp_product_id);
+        } else {
+            self::handle_product_create($post_id);
         }
     }
 
-    private static function handle_product_creation($product_id) {
-        $product = wc_get_product($product_id);
-        if (!$product) {
-            return;
-        }
-
+    private static function get_product_data($product) {
         $product_data = array(
             'name' => $product->get_name(),
             'currency' => get_woocommerce_currency(),
             'description' => $product->get_description(),
-            'price' => $product->get_price() ? $product->get_price() : 0,
-            'url' => $product->get_permalink(),
+            'price' => $product->get_price() ? intval($product->get_price()) : 0,
+            'url' => html_entity_decode($product->get_permalink()),
             'isHidden' => !$product->is_visible(),
             'originCountryCode' => 'PE',
             'images' => array_map(function($image_id) {
-                return array('url' => wp_get_attachment_url($image_id));
+                return array('url' => html_entity_decode(wp_get_attachment_url($image_id)));
             }, $product->get_gallery_image_ids())
         );
 
@@ -49,19 +53,41 @@ class WC_TapTapp_Product_Sync {
             );
         }
 
-        error_log('Product data to create: ' . print_r($product_data, true));
+        $sku = $product->get_sku();
+        if (!empty($sku)) {
+            $product_data['sku'] = $sku;
+        }
+
+        return $product_data;
+    }
+
+    private static function handle_product_create($product_id) {
+        $product = wc_get_product($product_id);
+        if (!$product) {
+            return;
+        }
+
+        $product_data = self::get_product_data($product);
 
         $response = wc_taptapp_create_product($product_data);
-        if (!$response['success']) {
-            error_log('Error creating product on WhatsApp: ' . $response['message']);
+        if ($response['success']) {
+            update_post_meta($product_id, '_whatsapp_product_id', $response['product']['productId']);
         } else {
-            error_log('Product created on WhatsApp: ' . print_r($response['product'], true));
+            // Aquí podrías agregar una notificación al administrador o manejar el error de manera más específica.
+        }
+    }
 
-            // Guardar el ID de WhatsApp como metadato del producto
-            if (isset($response['product']['id'])) {
-                update_post_meta($product_id, '_whatsapp_product_id', $response['product']['id']);
-                error_log('WhatsApp product ID saved: ' . $response['product']['id']);
-            }
+    private static function handle_product_update($product_id, $whatsapp_product_id) {
+        $product = wc_get_product($product_id);
+        if (!$product) {
+            return;
+        }
+
+        $update_data = self::get_product_data($product);
+
+        $response = wc_taptapp_update_product($whatsapp_product_id, $update_data);
+        if (!$response['success']) {
+            // Aquí podrías agregar una notificación al administrador o manejar el error de manera más específica.
         }
     }
 }
