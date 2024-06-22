@@ -19,12 +19,6 @@ function wc_taptapp_update_product( $product_id, $update_data ) {
     }
 
 
-    // Convertir el precio a centavos
-    if (isset($update_data['price'])) {
-        $update_data['price'] = intval(floatval($update_data['price']) * 1000);
-    }
-
-
     $args = array(
         'method' => 'PUT',
         'body' => json_encode(array(

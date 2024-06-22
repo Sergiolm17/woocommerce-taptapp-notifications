@@ -17,10 +17,6 @@ function wc_taptapp_create_product( $product_data ) {
         );
     }
 
-    // Convertir el precio a centavos
-    if (isset($product_data['price'])) {
-        $product_data['price'] = intval(floatval($product_data['price']) * 1000);
-    }
 
     $args = array(
         'body' => json_encode($product_data),
