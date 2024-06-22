@@ -96,7 +96,7 @@ class WC_TapTapp_Product_Sync {
             'name' => $product->get_name(),
             'currency' => get_woocommerce_currency(),
             'description' => $product->get_description() ? $product->get_description() : 'Descripción no disponible',
-            'price' => $product->get_price() ? intval($product->get_price() * 100) : 0,
+            'price' => $product->get_price() ? intval($product->get_price() * 1000) : 0,
             'url' => stripslashes(html_entity_decode($product->get_permalink())),
             'isHidden' => !$product->is_visible(),
             'originCountryCode' => 'PE',
