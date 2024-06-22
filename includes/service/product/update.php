@@ -9,6 +9,16 @@ function wc_taptapp_update_product( $product_id, $update_data ) {
     $api_url = isset( $core_settings['taptapp_api_url'] ) ? $core_settings['taptapp_api_url'] : '';
     $api_key = isset( $core_settings['taptapp_api_key'] ) ? $core_settings['taptapp_api_key'] : '';
 
+
+    if (empty($api_url) || empty($api_key)) {
+        error_log('API URL o API Key no están configurados.');
+        return array(
+            'success' => false,
+            'message' => 'API URL o API Key no están configurados.'
+        );
+    }
+
+
     // Convertir el precio a centavos
     if (isset($update_data['price'])) {
         $update_data['price'] = intval(floatval($update_data['price']) * 1000);

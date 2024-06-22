@@ -8,6 +8,7 @@ class WC_TapTapp_Product_Sync {
 
     public static function init() {
         add_action('save_post_product', array(__CLASS__, 'handle_product_save'), 10, 3);
+        add_action('before_delete_post', array(__CLASS__, 'handle_product_delete'));
     }
 
     public static function handle_product_save($post_id, $post, $update) {
@@ -28,6 +29,27 @@ class WC_TapTapp_Product_Sync {
             self::handle_product_update($post_id, $whatsapp_product_id);
         } else {
             self::handle_product_create($post_id);
+        }
+    }
+
+    public static function handle_product_delete($post_id) {
+        // Verifica si es un producto de WooCommerce
+        if (get_post_type($post_id) !== 'product') {
+            return;
+        }
+
+        // Verifica si el producto tiene un ID de producto de WhatsApp
+        $whatsapp_product_id = get_post_meta($post_id, '_whatsapp_product_id', true);
+        if (!$whatsapp_product_id) {
+            return;
+        }
+
+        // Llama a la función para eliminar el producto en WhatsApp
+        $response = wc_taptapp_delete_product(array($whatsapp_product_id));
+        if (!$response['success']) {
+            error_log('Error eliminando producto en WhatsApp: ' . $response['message']);
+        } else {
+            error_log('Producto eliminado en WhatsApp: ' . print_r($response, true));
         }
     }
 
