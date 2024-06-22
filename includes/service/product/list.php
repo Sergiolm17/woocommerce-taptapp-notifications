@@ -29,7 +29,7 @@ function wc_taptapp_get_product_list( $phone ) {
         )
     );
 
-    $request_url = $api_url . "/product/list";
+    $request_url = rtrim($api_url, '/') . "/product/list"; // Asegúrate de que no haya dobles barras
 
     // Log de información detallada de la solicitud
     error_log('Requesting product list from WhatsApp API with URL: ' . $request_url);
@@ -61,9 +61,13 @@ function wc_taptapp_get_product_list( $phone ) {
         }
 
         if ( isset( $decoded_response['products'] ) ) {
-            // Eliminar las imageUrls de cada producto
+            // Eliminar las imageUrls de cada producto y convertir el precio
             foreach ($decoded_response['products'] as &$product) {
                 unset($product['imageUrls']);
+                // Convertir el precio de centavos a unidad monetaria
+                if (isset($product['price'])) {
+                    $product['price'] = floatval($product['price']) / 100;
+                }
             }
 
             return array(

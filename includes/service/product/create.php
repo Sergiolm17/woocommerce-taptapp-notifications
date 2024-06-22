@@ -17,21 +17,26 @@ function wc_taptapp_create_product( $product_data ) {
         );
     }
 
+    // Convertir el precio a centavos
+    if (isset($product_data['price'])) {
+        $product_data['price'] = intval(floatval($product_data['price']) * 1000);
+    }
+
     $args = array(
         'body' => json_encode($product_data),
         'headers' => array(
             'Content-Type' => 'application/json',
             'x-api-key' => $api_key
         ),
-        'timeout' => 30 // Establecer tiempo de espera en 30 segundos
+        'timeout' => 15 // Establecer tiempo de espera en 15 segundos
     );
 
-    $request_url = $api_url . "/product/create";
+    $request_url = rtrim($api_url, '/') . "/product/create"; // Asegúrate de que no haya dobles barras
 
     // Log de información detallada de la solicitud
     error_log('Creating product on WhatsApp API with URL: ' . $request_url);
     error_log('Request headers: ' . print_r($args['headers'], true));
-    error_log('Request body: ' . print_r($product_data, true));
+    error_log('Request body: ' . print_r($args['body'], true));
 
     $response = wp_remote_post($request_url, $args);
 
@@ -70,5 +75,6 @@ function wc_taptapp_create_product( $product_data ) {
         }
     }
 }
+
 ?>
     
