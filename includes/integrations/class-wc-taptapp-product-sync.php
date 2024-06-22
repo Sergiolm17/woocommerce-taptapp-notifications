@@ -92,11 +92,17 @@ class WC_TapTapp_Product_Sync {
     }
 
     private static function get_product_data($product) {
+        $sale_price = get_post_meta($product->get_id(), '_sale_price', true);
+        $regular_price = get_post_meta($product->get_id(), '_regular_price', true);
+        $price = $sale_price ? $sale_price : $regular_price;
+        
+        $description = $product->get_short_description() ? $product->get_short_description() : $product->get_description();
+
         $product_data = array(
             'name' => $product->get_name(),
             'currency' => get_woocommerce_currency(),
             'description' => $product->get_description() ? $product->get_description() : 'Descripción no disponible',
-            'price' => $product->get_price() ? intval($product->get_price() * 1000) : 0,
+            'price' => $price ? intval($price * 1000) : 0,
             'url' => stripslashes(html_entity_decode($product->get_permalink())),
             'isHidden' => !$product->is_visible(),
             'originCountryCode' => 'PE',
