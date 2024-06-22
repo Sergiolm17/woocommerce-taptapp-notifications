@@ -16,7 +16,7 @@ class WC_TapTapp_API {
         if (is_plugin_active('woo-cart-abandonment-recovery/woo-cart-abandonment-recovery.php')) {
             add_action('rest_api_init', array(__CLASS__, 'register_routes'));
         } else {
-            error_log('WooCommerce Cart Abandonment Recovery plugin is not active.');
+            //error_log('WooCommerce Cart Abandonment Recovery plugin is not active.');
         }
     }
 

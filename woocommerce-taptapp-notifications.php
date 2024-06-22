@@ -28,6 +28,7 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/settings/class-wc-taptapp-p
 require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/class-wc-taptapp-integrations.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/class-wc-taptapp-cart-abandonment-integration.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/class-wc-taptapp-cf7-integration.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/class-wc-taptapp-product-sync.php';
 
 
 // Initialize the main plugin class
@@ -38,6 +39,7 @@ WC_TapTapp_Customer_Note_Settings::init();
 WC_TapTapp_Invoice_Settings::init();
 WC_Taptapp_CF7_Integration::init();
 WC_TapTapp_Product_Settings::init();
+WC_TapTapp_Product_Sync::init();
 
 
 // Activation hook to set default messages
