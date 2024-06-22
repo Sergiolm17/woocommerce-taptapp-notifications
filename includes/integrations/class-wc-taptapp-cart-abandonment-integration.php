@@ -16,7 +16,6 @@ class WC_TapTapp_API {
         if (is_plugin_active('woo-cart-abandonment-recovery/woo-cart-abandonment-recovery.php')) {
             add_action('rest_api_init', array(__CLASS__, 'register_routes'));
         } else {
-            //error_log('WooCommerce Cart Abandonment Recovery plugin is not active.');
         }
     }
 
@@ -29,10 +28,8 @@ class WC_TapTapp_API {
     }
 
     public static function handle_notify_request($request) {
-        error_log('Handling notify request...'); // Log de inicio
 
         $params = $request->get_body_params();
-        error_log('Received parameters: ' . print_r($params, true)); // Log de parámetros recibidos
         
         $first_name = sanitize_text_field($params['first_name']);
         $last_name = sanitize_text_field($params['last_name']);
@@ -47,7 +44,6 @@ class WC_TapTapp_API {
 
         // Convertir tabla HTML a texto
         $product_table_text = convert_table_to_text($product_table);
-        error_log('Converted product table to text: ' . $product_table_text); // Log de tabla convertida
 
         // Crear el mensaje de WhatsApp
         $message = "🛒 **¡Hola $first_name!**\n\n" .
@@ -62,11 +58,8 @@ class WC_TapTapp_API {
                    "¡Gracias por confiar en nosotros!\n" .
                    "**El equipo de TapTapp** ✨";
 
-        error_log('Generated message: ' . $message); // Log de mensaje generado
-
         // Enviar el mensaje de WhatsApp
         WC_TapTapp_WhatsApp::send_message($phone, $message);
-        error_log('Message sent to WhatsApp API'); // Log de mensaje enviado
 
         return new WP_REST_Response(array('status' => 'success', 'message' => 'Notification sent'), 200);
     }

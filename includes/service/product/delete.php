@@ -10,7 +10,6 @@ function wc_taptapp_delete_product( $product_ids ) {
     $api_key = isset( $core_settings['taptapp_api_key'] ) ? $core_settings['taptapp_api_key'] : '';
 
     if (empty($api_url) || empty($api_key)) {
-        error_log('API URL o API Key no están configurados.');
         return array(
             'success' => false,
             'message' => 'API URL o API Key no están configurados.'
@@ -32,11 +31,6 @@ function wc_taptapp_delete_product( $product_ids ) {
 
     $request_url = $api_url . "/product/delete";
 
-    // Log de información detallada de la solicitud
-    error_log('Deleting product on WhatsApp API with URL: ' . $request_url);
-    error_log('Request headers: ' . print_r($args['headers'], true));
-    error_log('Request body: ' . print_r($body, true));
-
     $response = wp_remote_post($request_url, $args);
 
     if ( is_wp_error( $response ) ) {
@@ -48,10 +42,6 @@ function wc_taptapp_delete_product( $product_ids ) {
     } else {
         $response_code = wp_remote_retrieve_response_code( $response );
         $response_body = wp_remote_retrieve_body( $response );
-
-        error_log('Response code: ' . $response_code);
-        error_log('Response body: ' . $response_body);
-
         $decoded_response = json_decode( $response_body, true );
 
         if ( $response_code != 200 ) {

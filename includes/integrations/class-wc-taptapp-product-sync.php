@@ -59,8 +59,6 @@ class WC_TapTapp_Product_Sync {
         $update_data = self::get_product_data($product);
         $update_data['isHidden'] = true;
 
-        error_log('Updating WhatsApp product with ID to hide: ' . $whatsapp_product_id);
-        error_log('Update data: ' . print_r($update_data, true));
 
         $response = wc_taptapp_update_product($whatsapp_product_id, $update_data);
         if (!$response['success']) {
@@ -151,9 +149,6 @@ class WC_TapTapp_Product_Sync {
         }
 
         $update_data = self::get_product_data($product);
-
-        error_log('Updating WhatsApp product with ID: ' . $whatsapp_product_id);
-        error_log('Update data: ' . print_r($update_data, true));
 
         $response = wc_taptapp_update_product($whatsapp_product_id, $update_data);
         if (!$response['success']) {

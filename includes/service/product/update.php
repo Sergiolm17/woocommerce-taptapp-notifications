@@ -34,11 +34,6 @@ function wc_taptapp_update_product( $product_id, $update_data ) {
 
     $request_url = rtrim($api_url, '/') . "/product/update"; // Asegúrate de que no haya dobles barras
 
-    // Log de información detallada de la solicitud
-    error_log('Updating product on WhatsApp API with URL: ' . $request_url);
-    error_log('Request headers: ' . print_r($args['headers'], true));
-    error_log('Request body: ' . print_r($args['body'], true));
-
     $response = wp_remote_request($request_url, $args);
 
     if ( is_wp_error( $response ) ) {
@@ -50,9 +45,6 @@ function wc_taptapp_update_product( $product_id, $update_data ) {
     } else {
         $response_code = wp_remote_retrieve_response_code( $response );
         $response_body = wp_remote_retrieve_body( $response );
-
-        error_log('Response code: ' . $response_code);
-        error_log('Response body: ' . $response_body);
 
         $decoded_response = json_decode( $response_body, true );
 

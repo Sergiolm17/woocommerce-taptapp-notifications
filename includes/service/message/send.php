@@ -40,7 +40,6 @@ function wc_taptapp_send_message( $phone, $message, $media = null ) {
     } else {
         $body['message']['text'] = $message;
     }
-    error_log('Sending WhatsApp message with body: ' . json_encode($body));
 
     $args = array(
         'body' => json_encode($body),
