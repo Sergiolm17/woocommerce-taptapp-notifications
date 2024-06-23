@@ -91,20 +91,25 @@ class WC_TapTapp_Status_Settings {
     public static function settings_page() {
         $subtab = isset($_GET['subtab']) ? sanitize_text_field($_GET['subtab']) : 'pending';
         ?>
+
         <h2 class="nav-tab-wrapper">
-            <a href="?page=taptapp-notifications&tab=status&subtab=pending" class="nav-tab <?php echo $subtab == 'pending' ? 'nav-tab-active' : ''; ?>">Pendiente de Pago 🕒</a>
-            <a href="?page=taptapp-notifications&tab=status&subtab=processing" class="nav-tab <?php echo $subtab == 'processing' ? 'nav-tab-active' : ''; ?>">Procesando 📦</a>
-            <a href="?page=taptapp-notifications&tab=status&subtab=on-hold" class="nav-tab <?php echo $subtab == 'on-hold' ? 'nav-tab-active' : ''; ?>">En Espera ⏸️</a>
-            <a href="?page=taptapp-notifications&tab=status&subtab=completed" class="nav-tab <?php echo $subtab == 'completed' ? 'nav-tab-active' : ''; ?>">Completado ✅</a>
-            <a href="?page=taptapp-notifications&tab=status&subtab=cancelled" class="nav-tab <?php echo $subtab == 'cancelled' ? 'nav-tab-active' : ''; ?>">Cancelado ❌</a>
-            <a href="?page=taptapp-notifications&tab=status&subtab=refunded" class="nav-tab <?php echo $subtab == 'refunded' ? 'nav-tab-active' : ''; ?>">Reembolsado 💸</a>
-            <a href="?page=taptapp-notifications&tab=status&subtab=failed" class="nav-tab <?php echo $subtab == 'failed' ? 'nav-tab-active' : ''; ?>">Fallido ⚠️</a>
-            <a href="?page=taptapp-notifications&tab=status&subtab=draft" class="nav-tab <?php echo $subtab == 'draft' ? 'nav-tab-active' : ''; ?>">Borrador 📝</a>
+            <a href="?page=taptapp-notifications-status&tab=status&subtab=pending" class="nav-tab <?php echo $subtab == 'pending' ? 'nav-tab-active' : ''; ?>">Pendiente de Pago 🕒</a>
+            <a href="?page=taptapp-notifications-status&tab=status&subtab=processing" class="nav-tab <?php echo $subtab == 'processing' ? 'nav-tab-active' : ''; ?>">Procesando 📦</a>
+            <a href="?page=taptapp-notifications-status&tab=status&subtab=on-hold" class="nav-tab <?php echo $subtab == 'on-hold' ? 'nav-tab-active' : ''; ?>">En Espera ⏸️</a>
+            <a href="?page=taptapp-notifications-status&tab=status&subtab=completed" class="nav-tab <?php echo $subtab == 'completed' ? 'nav-tab-active' : ''; ?>">Completado ✅</a>
+            <a href="?page=taptapp-notifications-status&tab=status&subtab=cancelled" class="nav-tab <?php echo $subtab == 'cancelled' ? 'nav-tab-active' : ''; ?>">Cancelado ❌</a>
+            <a href="?page=taptapp-notifications-status&tab=status&subtab=refunded" class="nav-tab <?php echo $subtab == 'refunded' ? 'nav-tab-active' : ''; ?>">Reembolsado 💸</a>
+            <a href="?page=taptapp-notifications-status&tab=status&subtab=failed" class="nav-tab <?php echo $subtab == 'failed' ? 'nav-tab-active' : ''; ?>">Fallido ⚠️</a>
+            <a href="?page=taptapp-notifications-status&tab=status&subtab=draft" class="nav-tab <?php echo $subtab == 'draft' ? 'nav-tab-active' : ''; ?>">Borrador 📝</a>
         </h2>
+        <form method="post" action="options.php">
+            <?php
+            settings_fields('taptapp_notifications_settings');
+            do_settings_sections("taptapp_notifications_{$subtab}");
+            submit_button();
+            ?>
+        </form>
         <?php
-        settings_fields( 'taptapp_notifications_settings' );
-        do_settings_sections( "taptapp_notifications_{$subtab}" );
-        submit_button();
     }
 }
 

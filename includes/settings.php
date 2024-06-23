@@ -69,10 +69,6 @@ class WC_TapTapp_Settings {
         );
     }
 
-    public static function redirect_to_status_page() {
-        wp_redirect(admin_url('admin.php?page=taptapp-notifications-status'));
-        exit;
-    }
 
     public static function enqueue_styles_and_scripts($hook) {
         if (strpos($hook, 'taptapp-notifications') === false) {
