@@ -31,13 +31,4 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/cf7.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/product-sync.php';
 
 include_once plugin_dir_path( __FILE__ ) . 'includes/activation.php';
-// Initialize the main plugin class
-WC_TapTapp_Notifications::init();
-WC_TapTapp_Settings::init();
-WC_TapTapp_Status_Settings::init();
-WC_TapTapp_Customer_Note_Settings::init();
-WC_TapTapp_Invoice_Settings::init();
-WC_Taptapp_CF7_Integration::init();
-WC_TapTapp_Product_Settings::init();
-WC_TapTapp_Product_Sync::init();
-WC_TapTapp_Customer_Notes::init();
+

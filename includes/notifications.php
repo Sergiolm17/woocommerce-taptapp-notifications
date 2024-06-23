@@ -99,4 +99,5 @@ class WC_TapTapp_Notifications {
     }
 
 }
-?>
+
+WC_TapTapp_Notifications::init();
