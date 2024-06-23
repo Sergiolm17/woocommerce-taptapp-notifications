@@ -78,8 +78,8 @@ class WC_TapTapp_Settings {
         if (strpos($hook, 'taptapp-notifications') === false) {
             return;
         }
-        wp_enqueue_style('taptapp-admin-styles', plugin_dir_url(__FILE__) . '../css/taptapp-admin-styles.css');
-        wp_enqueue_script('taptapp-admin-scripts', plugin_dir_url(__FILE__) . '../js/taptapp-admin-scripts.js', array('jquery'), false, true);
+        wp_enqueue_style('admin', plugin_dir_url(__FILE__) . 'assets/css/admin.css');
+        wp_enqueue_script('admin', plugin_dir_url(__FILE__) . 'assets/js/admin.js', array('jquery'), false, true);
     }
 
     public static function register_settings() {

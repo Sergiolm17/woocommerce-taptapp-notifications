@@ -44,7 +44,7 @@ class WC_Taptapp_CF7_Integration {
 	}
 
 	public function enqueue_admin_styles() {
-		wp_enqueue_style( 'wc-taptapp-admin-styles', plugins_url( 'css/admin-styles.css', __FILE__ ) );
+		wp_enqueue_style( 'wc-admin', plugins_url( 'assets/css/admin-styles.css', __FILE__ ) );
 	}
 
 	public function render_whatsapp_settings_panel( $post ) {
