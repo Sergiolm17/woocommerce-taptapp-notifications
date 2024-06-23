@@ -1,17 +1,28 @@
 jQuery(document).ready(function ($) {
-  // Placeholder Copy to Clipboard
+  // Keep track of the last focused textarea
+  var lastFocusedTextarea;
+
+  $("textarea").on("focus", function () {
+    lastFocusedTextarea = this;
+  });
+
+  // Placeholder Copy to Cursor Position
   $(".insert-placeholder").on("click", function () {
     var placeholder = $(this).data("placeholder");
-    console.log("Placeholder clicked:", placeholder);
-    navigator.clipboard.writeText(placeholder).then(
-      function () {
-        console.log("Copied to clipboard:", placeholder);
-        alert("Copied to clipboard: " + placeholder);
-      },
-      function (err) {
-        console.error("Could not copy text:", err);
-      }
-    );
+
+    if (lastFocusedTextarea) {
+      var $textarea = $(lastFocusedTextarea);
+      var cursorPos = $textarea.prop("selectionStart");
+      var text = $textarea.val();
+      var textBefore = text.substring(0, cursorPos);
+      var textAfter = text.substring(cursorPos, text.length);
+      $textarea.val(textBefore + placeholder + textAfter);
+      $textarea.focus();
+      $textarea[0].setSelectionRange(
+        cursorPos + placeholder.length,
+        cursorPos + placeholder.length
+      );
+    }
   });
 
   // Optional: Drag and Drop functionality
