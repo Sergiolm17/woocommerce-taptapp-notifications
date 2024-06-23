@@ -113,7 +113,7 @@ class WC_TapTapp_Product_Sync {
         if (empty($product_data['images'])) {
             $product_data['images'] = array(
                 array(
-                    'url' => get_site_url() . '/wp-content/uploads/woocommerce-placeholder.png'
+                    'url' => 'https://taptapp.xyz/wp-content/uploads/woocommerce-placeholder.png'
                 )
             );
         }

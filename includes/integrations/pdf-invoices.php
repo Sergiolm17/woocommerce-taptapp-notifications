@@ -9,7 +9,7 @@ if ( ! function_exists( 'is_plugin_active' ) ) {
     require_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
 
-class WC_TapTapp_Integration {
+class WC_TapTapp_PDF_Invoices {
 
     public static function init() {
         add_action( 'woocommerce_order_status_changed', array( __CLASS__, 'send_documents_if_plugin_installed' ), 10, 4 );
@@ -122,5 +122,5 @@ class WC_TapTapp_Integration {
     }
 }
 
-WC_TapTapp_Integration::init();
+WC_TapTapp_PDF_Invoices::init();
 ?>

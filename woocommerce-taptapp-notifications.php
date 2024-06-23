@@ -15,20 +15,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 include_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-taptapp-notifications.php';
 include_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-taptapp-whatsapp.php';
 include_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-taptapp-customer-notes.php';
-
 include_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-taptapp-settings.php';
-include_once plugin_dir_path( __FILE__ ) . 'includes/settings/class-wc-taptapp-customer-note-settings.php';
-include_once plugin_dir_path( __FILE__ ) . 'includes/settings/class-wc-taptapp-status-settings.php';
-include_once plugin_dir_path( __FILE__ ) . 'includes/settings/class-wc-taptapp-invoice-settings.php';
-include_once plugin_dir_path( __FILE__ ) . 'includes/settings/class-wc-taptapp-core-settings.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/settings/class-wc-taptapp-product-settings.php';
+
+include_once plugin_dir_path( __FILE__ ) . 'includes/settings/customer-note.php';
+include_once plugin_dir_path( __FILE__ ) . 'includes/settings/status.php';
+include_once plugin_dir_path( __FILE__ ) . 'includes/settings/invoice.php';
+include_once plugin_dir_path( __FILE__ ) . 'includes/settings/core.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/settings/product.php';
 
 
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/class-wc-taptapp-integrations.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/class-wc-taptapp-cart-abandonment-integration.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/class-wc-taptapp-cf7-integration.php';
-require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/class-wc-taptapp-product-sync.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/product-sync.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/cart-abandonment.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/cf7.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/product-sync.php';
 
 
 // Initialize the main plugin class

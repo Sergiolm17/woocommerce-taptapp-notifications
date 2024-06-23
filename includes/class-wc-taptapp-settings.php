@@ -18,7 +18,7 @@ class WC_TapTapp_Settings {
             'TapTapp Notifications',
             'manage_options',
             'taptapp-notifications',
-            array( __CLASS__, 'redirect_to_status_page' ),
+            array( 'WC_TapTapp_Product_Settings', 'settings_page' ),
             'dashicons-email-alt',
             56
         );
