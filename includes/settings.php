@@ -58,7 +58,7 @@ class WC_TapTapp_Settings {
             'taptapp-notifications-core',
             array( 'WC_TapTapp_Core_Settings', 'settings_page' )
         );
-
+/*
         add_submenu_page(
             'taptapp-notifications',
             'Producto',
@@ -67,6 +67,7 @@ class WC_TapTapp_Settings {
             'taptapp-notifications-product',
             array( 'WC_TapTapp_Product_Settings', 'settings_page' )
         );
+        */
     }
 
 
