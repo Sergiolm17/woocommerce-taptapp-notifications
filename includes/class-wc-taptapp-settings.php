@@ -7,25 +7,75 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WC_TapTapp_Settings {
 
     public static function init() {
-        add_action( 'admin_menu', array( __CLASS__, 'add_settings_page' ) );
+        add_action( 'admin_menu', array( __CLASS__, 'add_settings_pages' ) );
         add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_styles_and_scripts' ) );
         add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
     }
 
-    public static function add_settings_page() {
+    public static function add_settings_pages() {
         add_menu_page(
             'TapTapp Notifications',
             'TapTapp Notifications',
             'manage_options',
             'taptapp-notifications',
-            array( __CLASS__, 'settings_page' ),
+            array( __CLASS__, 'redirect_to_status_page' ),
             'dashicons-email-alt',
             56
         );
+
+        add_submenu_page(
+            'taptapp-notifications',
+            'Estado del Pedido',
+            'Estado del Pedido',
+            'manage_options',
+            'taptapp-notifications-status',
+            array( 'WC_TapTapp_Status_Settings', 'settings_page' )
+        );
+
+        add_submenu_page(
+            'taptapp-notifications',
+            'Notas de Cliente',
+            'Notas de Cliente',
+            'manage_options',
+            'taptapp-notifications-customer_note',
+            array( 'WC_TapTapp_Customer_Note_Settings', 'settings_page' )
+        );
+
+        add_submenu_page(
+            'taptapp-notifications',
+            'Facturas PDF',
+            'Facturas PDF',
+            'manage_options',
+            'taptapp-notifications-invoice',
+            array( 'WC_TapTapp_Invoice_Settings', 'settings_page' )
+        );
+
+        add_submenu_page(
+            'taptapp-notifications',
+            'Configuración del Core',
+            'Configuración del Core',
+            'manage_options',
+            'taptapp-notifications-core',
+            array( 'WC_TapTapp_Core_Settings', 'settings_page' )
+        );
+
+        add_submenu_page(
+            'taptapp-notifications',
+            'Producto',
+            'Producto',
+            'manage_options',
+            'taptapp-notifications-product',
+            array( 'WC_TapTapp_Product_Settings', 'settings_page' )
+        );
+    }
+
+    public static function redirect_to_status_page() {
+        wp_redirect(admin_url('admin.php?page=taptapp-notifications-status'));
+        exit;
     }
 
     public static function enqueue_styles_and_scripts($hook) {
-        if ($hook != 'toplevel_page_taptapp-notifications') {
+        if (strpos($hook, 'taptapp-notifications') === false) {
             return;
         }
         wp_enqueue_style('taptapp-admin-styles', plugin_dir_url(__FILE__) . '../css/taptapp-admin-styles.css');
@@ -36,42 +86,6 @@ class WC_TapTapp_Settings {
         register_setting( 'taptapp_notifications_settings', 'taptapp_notifications_messages' );
         register_setting( 'taptapp_notifications_settings', 'taptapp_invoice_settings' );
         register_setting( 'taptapp_notifications_settings', 'taptapp_product_settings' ); // Añadir la configuración del producto
-    }
-
-    public static function settings_page() {
-        $tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'status';
-        ?>
-        <div class="wrap">
-            <h1>Configuración de Notificaciones de TapTapp</h1>
-            <h2 class="nav-tab-wrapper">
-                <a href="?page=taptapp-notifications&tab=status" class="nav-tab <?php echo $tab == 'status' ? 'nav-tab-active' : ''; ?>">Estado del Pedido</a>
-                <a href="?page=taptapp-notifications&tab=customer_note" class="nav-tab <?php echo $tab == 'customer_note' ? 'nav-tab-active' : ''; ?>">Notas de Cliente</a>
-                <a href="?page=taptapp-notifications&tab=invoice" class="nav-tab <?php echo $tab == 'invoice' ? 'nav-tab-active' : ''; ?>">Facturas PDF</a>
-                <a href="?page=taptapp-notifications&tab=core" class="nav-tab <?php echo $tab == 'core' ? 'nav-tab-active' : ''; ?>">Configuración del Core</a>
-                <a href="?page=taptapp-notifications&tab=product" class="nav-tab <?php echo $tab == 'product' ? 'nav-tab-active' : ''; ?>">Producto</a> <!-- Añadir pestaña de Producto -->
-            </h2>
-            <form method="post" action="options.php">
-                <?php
-                if ($tab == 'status') {
-                    settings_fields( 'taptapp_notifications_settings' );
-                    WC_TapTapp_Status_Settings::settings_page();
-                } elseif ($tab == 'customer_note') {
-                    settings_fields( 'taptapp_notifications_settings' );
-                    WC_TapTapp_Customer_Note_Settings::settings_page();
-                } elseif ($tab == 'invoice') {
-                    settings_fields( 'taptapp_notifications_settings' );
-                    WC_TapTapp_Invoice_Settings::settings_page();
-                } elseif ($tab == 'product') {
-                    settings_fields( 'taptapp_notifications_settings' );
-                    WC_TapTapp_Product_Settings::settings_page(); // Llamar a la página de configuración del producto
-                } else {
-                    settings_fields( 'taptapp_core_settings' );
-                    WC_TapTapp_Core_Settings::settings_page();
-                }
-                ?>
-            </form>
-        </div>
-        <?php
     }
 }
 
