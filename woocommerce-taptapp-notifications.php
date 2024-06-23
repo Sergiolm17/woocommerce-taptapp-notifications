@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Include the necessary files
-include_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-taptapp-notifications.php';
-include_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-taptapp-whatsapp.php';
-include_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-taptapp-customer-notes.php';
-include_once plugin_dir_path( __FILE__ ) . 'includes/class-wc-taptapp-settings.php';
+include_once plugin_dir_path( __FILE__ ) . 'includes/notifications.php';
+include_once plugin_dir_path( __FILE__ ) . 'includes/whatsapp.php';
+include_once plugin_dir_path( __FILE__ ) . 'includes/customer-notes.php';
+include_once plugin_dir_path( __FILE__ ) . 'includes/settings.php';
 
 include_once plugin_dir_path( __FILE__ ) . 'includes/settings/customer-note.php';
 include_once plugin_dir_path( __FILE__ ) . 'includes/settings/status.php';
@@ -40,7 +40,7 @@ WC_TapTapp_Invoice_Settings::init();
 WC_Taptapp_CF7_Integration::init();
 WC_TapTapp_Product_Settings::init();
 WC_TapTapp_Product_Sync::init();
-
+WC_TapTapp_Customer_Notes::init();
 
 // Activation hook to set default messages
 function taptapp_notifications_activate() {
