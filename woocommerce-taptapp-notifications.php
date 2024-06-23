@@ -25,9 +25,9 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/settings/product.php';
 
 
 
-require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/product-sync.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/cart-abandonment.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/cf7.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/pdf-invoices.php';
 require_once plugin_dir_path( __FILE__ ) . 'includes/integrations/product-sync.php';
 
 include_once plugin_dir_path( __FILE__ ) . 'includes/activation.php';
